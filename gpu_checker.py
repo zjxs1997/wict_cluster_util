@@ -1,5 +1,6 @@
 # todo: add gpu_blacklist support
 # todo: colorful display
+# miner change to test github push
 
 import requests
 import json
