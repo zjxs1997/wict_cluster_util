@@ -1,15 +1,23 @@
 # todo: colorful display
 # todo: add wechat notification
 # todo: use a configuration file
+#       or use input from cmd line to overwrite
 
 import requests
 import json
 import colorama
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--target_memory', type=int, default=1000)
+
 
 target_memory = 1000
 
 cluster_blacklist = [2]
 gpu_blacklist = [(7, 'GPU0')]
+your_group_codename = 'LCWM'
+
 
 use_wechat_notify = False
 wechat_schkey = 'xxx'
@@ -40,3 +48,10 @@ for i in range(10):
             text = f"{cluster_key} | GPU{gpu_key} | 使用显存 {gpu_value['memory.used']: 5} | 使用率 {gpu_value['utilization.gpu']:3} | 温度 {gpu_value['temperature.gpu']}"
             print(text)
             texts.append(text)
+
+print()
+group_gpu_thread_dict = state_dict['top_group_gpu_threads']
+if your_group_codename in group_gpu_thread_dict:
+    number = group_gpu_thread_dict[your_group_codename]
+    print(f'{your_group_codename}: {number}')
+
