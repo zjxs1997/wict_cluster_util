@@ -10,6 +10,15 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--target_memory', type=int, default=1000)
+parser.add_argument('--group_name', type=str, default='LCWM')
+
+parser.add_argument('--wechat_notify', action='store_true')
+parser.add_argument('--wechat_sckey', type=str,)
+parser.add_argument('--wechat_notify_interval', type=int, default=24*3600)
+
+# 没法处理黑名单这种序列的数据啊
+
+args = parser.parse_args()
 
 
 target_memory = 1000
