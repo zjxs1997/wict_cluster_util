@@ -15,8 +15,8 @@ parser.add_argument('--group_name', type=str, default='LCWM')
 parser.add_argument('--wechat_notify', action='store_true')
 parser.add_argument('--wechat_sckey', type=str,)
 parser.add_argument('--wechat_notify_interval', type=int, default=24*3600)
+parser.add_argument('--black_list', type=str, nargs='+')
 
-# 没法处理黑名单这种序列的数据啊
 
 args = parser.parse_args()
 
@@ -24,8 +24,14 @@ args = parser.parse_args()
 target_memory = 1000
 
 cluster_blacklist = [2]
-gpu_blacklist = [(7, 'GPU0')]
 your_group_codename = 'LCWM'
+gpu_blacklist = []
+if args.black_list:
+    for black in args.black_list:
+        num = int(black[0])
+        gpu_num = 'GPU' + black[1]
+        gpu_blacklist.append((num, gpu_num))
+# [(7, 'GPU0')]
 
 
 use_wechat_notify = False
